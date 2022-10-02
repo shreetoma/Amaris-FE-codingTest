@@ -1,0 +1,63 @@
+
+<h2>Register</h2>
+<form [formGroup]="registerForm" >
+  
+    <div class="form-group ">
+        <label for="firstName">First Name</label>
+        <input type="text" formControlName="firstName" class="form-control" [ngClass]="(registerForm.get('firstName').invalid && registerForm.get('firstName').touched) ? 'is-invalid':'is-valid' " />
+         <div *ngIf="(registerForm.get('firstName').invalid && registerForm.get('firstName').touched) || registerForm.get('firstName').dirty"> 
+            <span style ="color:red"*ngIf="registerForm.get('firstName').errors?.required">First Name is required</span>
+         </div> 
+    </div>
+    <div class="form-group ">
+        <label for="lastName">Last Name</label>
+        <input type="text" formControlName="lastName" class="form-control" [ngClass]="(registerForm.get('lastName').invalid && registerForm.get('lastName').touched) ? 'is-invalid':'is-valid' " />
+        <div *ngIf="(registerForm.get('lastName').invalid && registerForm.get('lastName').touched) || registerForm.get('lastName').dirty" >
+            <div  style ="color:red" *ngIf="registerForm.get('lastName').errors?.required">Last Name is required</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Small Description</label>
+        <textarea formControlName="description" class="form-control" [ngClass]="(registerForm.get('description').invalid && registerForm.get('description').touched) ? 'is-invalid':'is-valid' " ></textarea>
+        <div *ngIf="(registerForm.get('description').invalid && registerForm.get('description').touched) || registerForm.get('description').dirty">
+            <div  style ="color:red" *ngIf="registerForm.get('description').errors?.required">Description is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" formControlName="email" class="form-control" [ngClass]="(registerForm.get('email').invalid && registerForm.get('email').dirty) ? 'is-invalid':'is-valid' " />
+      
+        <div *ngIf="(registerForm.get('email').invalid && registerForm.get('email').touched) || registerForm.get('email').dirty">
+            <small style ="color:red" *ngIf="registerForm.get('email').errors?.required">Email  is required</small>
+            <small style ="color:red;" *ngIf="registerForm.get('email').errors?.email">Email address is invalid</small>
+          </div>
+    </div>
+    
+    <div class="form-group">
+        <button style="width: 47%;margin-left: 52%;height:38px;" class= "btn btn-primary" [ngClass]="{ 'isDisabled': !registerForm.valid }"(click)="onSubmit()">Save</button>
+        <label style="width: 47%;margin-top: -9%" for="img" class=" btn btn-primary">Add Image</label>
+        <input #file  type="file" id="img" accept='image/*' style="display:none"(change)="preview(file.files)" />
+    </div>
+    </form>
+    <div *ngIf="imgURL">
+    <img *ngFor="let img of imgURL"[src]="img" height="200">
+</div>
+    <div class="modal" tabindex="-1" role="dialog"[ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Success</h4>
+      </div>
+      <div class="modal-body">
+        <p>Email sent successfully..Please check your inbox.!!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" 
+                (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
