@@ -60,4 +60,7 @@ export class LogInComponent implements OnInit {
       this.imgURL.push(reader.result); 
     }
   }
+  removeImage(i){
+    
+  }
 }
